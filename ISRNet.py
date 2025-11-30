@@ -143,9 +143,9 @@ class PrevMaskEncoder(nn.Module):
         return x
 
 
-class ISFNet(nn.Module):
+class ISRNet(nn.Module):
     def __init__(self, checkpoint_path=None) -> None:
-        super(ISFNet, self).__init__()    
+        super(ISRNet, self).__init__()    
         model_cfg = "sam2_hiera_l.yaml"
         if checkpoint_path:
             model = build_sam2(model_cfg, checkpoint_path)
@@ -233,7 +233,7 @@ class ISFNet(nn.Module):
 
 if __name__ == "__main__":
     with torch.no_grad():
-        model = ISFNet().cuda()
+        model = ISRNet().cuda()
         x = torch.randn(8, 3, 352, 352).cuda()
         out1,out2,out = model(x)
         print(out1.shape,out2.shape,out.shape)

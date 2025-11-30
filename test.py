@@ -6,7 +6,7 @@ import imageio
 import numpy as np
 import torch.nn.functional as F
 from scipy.ndimage import label
-from ISFNet import ISFNet
+from ISRNet import ISRNet
 from dataset import TestDataset
 import nibabel as nib
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--checkpoint", type=str, required=True, 
-                help="path to the checkpoint of ISFNet")
+                help="path to the checkpoint of ISRNet")
 parser.add_argument("--test_image_path", type=str, required=True,
                     help="path to the image files for testing")
 parser.add_argument("--save_path", type=str, required=True,
@@ -24,7 +24,7 @@ args = parser.parse_args()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 test_loader = TestDataset(args.test_image_path, 352)
-model = ISFNet().to(device)
+model = ISRNet().to(device)
 model.load_state_dict(torch.load(args.checkpoint), strict=True)
 model.eval()
 model.cuda()
